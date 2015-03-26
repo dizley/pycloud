@@ -23,6 +23,8 @@ class WordCloud():
         '''
         Generate a word cloud from a list of words
         '''
+        pygame.font.init()
+        
         self.MAX_WORDS = MAX_WORDS
         self.MAX_FONT_SIZE = MAX_FONT_SIZE
         self.word_hist = self.list_from_file(filename)
@@ -33,6 +35,8 @@ class WordCloud():
         self.tighten()
         self.cloudSurf = None
         self.draw()
+        
+        pygame.font.quit()
 
     def list_from_file(self, filename):
         '''
@@ -167,6 +171,9 @@ class WordCloud():
         backSurf = pygame.Surface((r-l+500, b-t+500))
         backSurf.fill((255, 255, 255))
         return backSurf
+    
+    def save_img(self, filename="cloud.png"):
+        pygame.image.save(self.cloudSurf, filename)
 
     def _random_x(self):
         return round(random.gauss(0, 20))
