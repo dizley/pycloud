@@ -60,9 +60,9 @@ class WordCloud():
         ordered by font size.
         '''
         highest_freq = word_hist.most_common(1)[0][1]
-        word_sizes = OrderedDict()
+        word_sizes = []
         for word in word_hist.most_common(self.MAX_WORDS):
-            word_sizes[word[0]] = self.size_from_freq(word[1], highest_freq)
+            word_sizes.append((word[0], self.size_from_freq(word[1], highest_freq)))
         return word_sizes
 
     def size_from_freq(self, freq, highest_freq):
@@ -76,7 +76,10 @@ class WordCloud():
         a = 0
         b = -.1
 
-        for word, size in self.word_sizes.items():
+        first_word = self.word_sizes.pop(0)
+        random.shuffle(self.word_sizes)
+        self.word_sizes.insert(0, first_word)
+        for word, size in self.word_sizes:
             # initialize word at random start position
             newWord = Word(word, size=size, x=self._random_x(),
                            y=self._random_y())
