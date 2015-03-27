@@ -66,7 +66,7 @@ class WordCloud():
         return word_sizes
 
     def size_from_freq(self, freq, highest_freq):
-        exp_factor = 1.9
+        exp_factor = 2.5
         x = freq/highest_freq
         y = (self.MAX_FONT_SIZE/math.exp(exp_factor))*math.exp(exp_factor*x)
         return round(y)
